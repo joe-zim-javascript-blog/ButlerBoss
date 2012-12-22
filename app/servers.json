@@ -1,0 +1,8 @@
+[
+	{"id": "single", "serverName": "Single Player", "isRunning": true},
+	{"id": "castle", "serverName": "Castle"},
+	{"id": "experiments", "serverName": "Experiments"},
+	{"id": "friendville", "serverName": "Friendville"},
+	{"id": "house", "serverName": "My House"},
+	{"id": "sharn", "serverName": "Sharn"}
+]
