@@ -1,10 +1,27 @@
-define(
-	['marionette'],
-	function(Marionette) {
+(function (root, factory) {
+  if (typeof exports === 'object') {
+
+    var marionette = require('marionette');
+    var babysitter = require('babysitter');
+    var underscore = require('underscore');
+
+    module.exports = factory(marionette, babysitter, underscore);
+
+  } else if (typeof define === 'function' && define.amd) {
+
+    define(['marionette', 'babysitter', 'underscore'], factory);
+
+  }
+}(this, function(Marionette, BabySitter, _) {
 
 		var NamedMultiRegion = Marionette.NamedMultiRegion = Marionette.Region.extend({
 			currentViews: [],
 			nameIndex: [],
+			viewStore: null,
+
+			initialize: function() {
+				this.viewStore = new BabySitter();
+			},
 
 			open: function(view) {
 				this.ensureEl();
@@ -12,12 +29,29 @@ define(
 			},
 
 			close: function(names){
-				names = this._normalizeNames(names);
-				var views = this._getViewsByNames(names);
+				var views = [];
 
-				_.each(views, this._closeView, this);
+				if (_.isString(names) || _.isArray(names)) { // Close specific views
+					if (_.isString(names)) {
+						names = [names];
+					}
 
-				this._removeViews(names, views);
+					_.each(names, function(name) {
+						var view = this.viewStore.findByCustom(name);
+						views.push(view);
+
+						this._closeView(view);
+						this._removeView(view);
+					}, this);
+				}
+				else { // Close all of the views
+					this.viewStore.each(function(view){
+						views.push(view);
+						this._closeView(view);
+						this._removeView(view);
+					}, this);
+				}
+
 				Marionette.triggerMethod.call(this, "close", views);
 
 				return this;
@@ -32,50 +66,33 @@ define(
 				Marionette.triggerMethod.call(view, "show");
 				Marionette.triggerMethod.call(this, "show", view);
 
-				this.currentViews.push(view);
-				this.nameIndex.push(name);
+				this.viewStore.add(view, name);
 
 				return this;
-			},
-
-			_closeView: function(view) {
-				if (view.close) {
-					view.close();
-					view.remove(); // just in case close doesn't remove too
-				}
-				else {
-					// If it doesn't have a `close` method, at least remove them from the DOM with Backbone.View's `remove`
-					view.remove();
-				}
-
-				Marionette.triggerMethod.call(this, "close", view);
-			},
-
-			_removeViews: function(names, views) {
-				this.nameIndex = _.difference(this.nameIndex, names);
-				this.currentViews = _.difference(this.currentViews, views);
 			},
 
 			attachView: function(name, view) {
 				this._throwErrorsForBadArguments(name, view);
 				this.open(view);
 
-				this.currentViews.push(view);
-				this.nameIndex.push(name);
-
+				this.viewStore.add(view, name);
 				return this;
 			},
 
-			_normalizeNames: function (names) {
-				if (typeof names === 'string') {
-					// Convert it to an array
-					names = [names];
+			_closeView: function(view) {
+				if (_.isFunction(view.close)) {
+					view.close();
 				}
-				else if (! _.isArray(names)) {
-					// If no names were sent in or it wasn't a string/array, just use all of the names that we have stored up
-					names = this.nameIndex;
+
+				if (_.isFunction(view.remove)) {
+					view.remove();
 				}
-				return names;
+
+				Marionette.triggerMethod.call(this, "close", view);
+			},
+
+			_removeView: function(view) {
+				this.viewStore.remove(view);
 			},
 
 			_getViewsByNames: function(names) {
@@ -93,16 +110,8 @@ define(
 			},
 
 			_throwErrorsForBadArguments: function(name, view) {
-				if (typeof name !== "string" || typeof view !== "object") {
+				if ( !_.isString(name) || !_.isObject(view)) {
 					throw new Error("Please provide a string name and a view object");
-				}
-
-				if (_.contains(this.nameIndex, name)) {
-					throw new Error("The name provided already exists. Names in NamedMultiRegions must be unique.");
-				}
-
-				if (_.contains(this.currentViews, view)) {
-					throw new Error("The View provided already exists. Views in NamedMultiRegions must be unique.");
 				}
 			}
 		});
@@ -110,4 +119,4 @@ define(
 		return NamedMultiRegion;
 
 	}
-);
+));

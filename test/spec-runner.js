@@ -11,6 +11,7 @@ require.config({
 		backbone: "lib/backbone",				// shimmed below
 		backbonemvc: "lib/backbonemvc",			// shimmed below
 		marionette: "lib/backbone.marionette",	// has AMD built in
+		babysitter: "lib/backbone.babysitter",	// has AMD built in
 		io: "lib/socket.io",					// shimmed below
 		// RequireJS Plugins
 		text: "lib/require.text",				// RequireJS plugin. No need to shim.
@@ -72,7 +73,7 @@ require(['underscore', 'jquery'], function(_, $){
 */
 	// Add links to the spec files here
 	var specs = [];
-	specs.push('spec/NamedMultiRegionSpec');
+	specs.push('spec/lib/namedmultiregion_spec');
 
 	// Execute specs
 	$(function(){

@@ -24,27 +24,28 @@ define(
 
 			beforeEach(function(){
 				region.reset();
-
-				region.show('view1', view1);
-				region.show('view2', view2);
 			});
 
 			afterEach(function() {
 				clearSandbox();
 			});
 
-			describe('.show', function() {
+			describe('#show', function() {
 
-				it('should add names', function(){
-					expect(region.nameIndex).toContain('view1');
-					expect(region.nameIndex).toContain('view2');
-					expect(region.nameIndex.length).toBe(2);
+				beforeEach(function(){
+					region.show('view1', view1);
+					region.show('view2', view2);
 				});
 
 				it('should add views', function(){
-					expect(region.currentViews).toContain(view1);
-					expect(region.currentViews).toContain(view2);
-					expect(region.currentViews.length).toBe(2);
+					expect(region.viewStore.contains(view1)).toBe(true);
+					expect(region.viewStore.contains(view2)).toBe(true);
+					expect(region.viewStore.length).toBe(2);
+				});
+
+				it('should add names', function(){
+					expect(region.viewStore.findByCustom('view1')).toBe(view1);
+					expect(region.viewStore.findByCustom('view2')).toBe(view2);
 				});
 
 				it('should render the views', function(){
@@ -77,35 +78,20 @@ define(
 					expect(wrongOrder).toThrow();
 				});
 
-				it('should throw an error if the arguments are duplicates', function(){
-					var dupName = function() {
-						region.show('view1', new View());
-					};
-
-					var dupView = function() {
-						region.show('view', view1);
-					};
-
-					expect(dupName).toThrow();
-					expect(dupView).toThrow();
-				});
-
 			});
 
-			describe('.close', function() {
+			describe('#close', function() {
+
+				beforeEach(function(){
+					region.show('view1', view1);
+					region.show('view2', view2);
+				});
 
 				it('should remove a view if a view name is provided', function(){
 					region.close('view1');
 
-					expect(region.currentViews.length).toBe(1);
-					expect(region.currentViews).not.toContain(view1);
-				});
-
-				it('should remove a view name if a view name is provided', function(){
-					region.close('view1');
-
-					expect(region.nameIndex.length).toBe(1);
-					expect(region.nameIndex).not.toContain('view1');
+					expect(region.viewStore.length).toBe(1);
+					expect(region.viewStore.contains(view1)).toBe(false);
 				});
 
 				it('should unrender a view if a view name is provided', function(){
@@ -163,21 +149,26 @@ define(
 
 			});
 
-			describe('.attachView', function() {
+			describe('#attachView', function() {
 
-				it('should add the name', function(){
-					region.attachView('view3', new View());
+				it('should add a view', function(){
+					region.attachView('view1', view1);
 
-					expect(region.nameIndex).toContain('view3');
-					expect(region.nameIndex.length).toBe(3);
+					expect(region.viewStore.contains(view1)).toBe(true);
+					expect(region.viewStore.length).toBe(1);
+
+					region.attachView('view2', view2);
+
+					expect(region.viewStore.contains(view2)).toBe(true);
+					expect(region.viewStore.length).toBe(2);
 				});
 
-				it('should add the view', function(){
-					var view = new View();
-					region.attachView('view3', view);
+				it('should add names', function(){
+					region.attachView('view1', view1);
+					region.attachView('view2', view2);
 
-					expect(region.currentViews).toContain(view);
-					expect(region.currentViews.length).toBe(3);
+					expect(region.viewStore.findByCustom('view1')).toBe(view1);
+					expect(region.viewStore.findByCustom('view2')).toBe(view2);
 				});
 
 				it('should not render the view', function(){
@@ -210,19 +201,6 @@ define(
 					expect(noView).toThrow();
 					expect(noArgs).toThrow();
 					expect(wrongOrder).toThrow();
-				});
-
-				it('should throw an error if the arguments are duplicates', function(){
-					var dupName = function() {
-						region.attachView('view1', new View());
-					};
-
-					var dupView = function() {
-						region.attachView('view', view1);
-					};
-
-					expect(dupName).toThrow();
-					expect(dupView).toThrow();
 				});
 
 			});
