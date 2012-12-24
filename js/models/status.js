@@ -1,71 +1,67 @@
 define(
-	['app', 'backbone', 'underscore', 'io'],
-	function(App, Backbone, _, io) {
+	['underscore'],
+	function(_) {
 
-		var Socket = Backbone.Model.extend({
+		var Status = function(options) {
+			
+			this.socket = options.socket;
+			this.vent = options.vent;
 
-			connected: false,
-			status: null,
-			socket: null,
+			this._listenTo(this.vent, {
+				'status:get': this.getStatus,
+				'server:start': this.start,
+				'server:stop': this.stop,
+				'server:command': this.issueCommand
+			});
 
-			initialize: function(options) {
-				this.url = options.host;
-				this.socket = io.connect( options.host + ':8080' );
+			this._listenTo(this.socket, {
+				'connect': this.getStatus,
+				'console': this.onConsole,
+				'status': this.onStatus,
+				'fail': this.onFail
+			});
+		};
 
-				this.socket.on("connect", _.bind(this._connected, this));
-				this.socket.on("disconnect", _.bind(this._disconnected, this));
-				this.socket.on("status", _.bind(this._receivedStatus, this));
-				this.socket.on("console", _.bind(this._receivedConsole, this));
-				this.socket.on("fail", _.bind(this._failed, this));
+		_.extend(Status.prototype, {
+
+			_listenTo:function(obj, bindings) {
+				var self = this;
+
+				_.each(bindings, function(callback, event) {
+					obj.on(event, callback, self);
+				});
 			},
 
 			getStatus: function() {
-				this._emit('getStatus');
+				this.socket.emit('getStatus');
 			},
 
 			start: function(server) {
-				this._emit('start', server.get('id'));
+				this.socket.emit('start', server.get('id'));
 			},
 
 			stop: function(server) {
-				this._emit('stop', server.get('id'));
+				this.socket.emit('stop', server.get('id'));
 			},
 
 			issueCommand: function(server, cmd) {
-				this._emit('command', server.get('id'), cmd);
+				this.socket.emit('command', server.get('id'), cmd);
 			},
 
-			_emit: function() {
-				if (this.connnected) {
-					this.socket.emit.apply(this.socket, arguments);
-				}
+			onConsole: function(server, text) {
+				this.vent.trigger('status:console', server, text);
 			},
 
-			_connected: function() {
-				this.connected = true;
-				this.getStatus();
-				App.vent.trigger('status:connected');
+			onStatus: function(status) {
+				this.vent.trigger('status:received', status);
 			},
 
-			_disconnected: function() {
-				this.connected = false;
-				App.vent.trigger('status:disconnected');
-			},
-
-			_receivedConsole: function(server, text) {
-				App.vent.trigger('status:console', server, text);
-			},
-
-			_receivedStatus: function(status) {
-				App.vent.trigger('status:received', status);
-			},
-
-			_fail: function(err) {
-				App.vent.trigger('status:fail', err);
+			onFail: function(err) {
+				this.vent.trigger('status:fail', err);
 			}
 		});
 
-		return Socket;
+		return Status;
 
 	}
 );
