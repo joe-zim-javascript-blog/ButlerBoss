@@ -2,14 +2,14 @@
   if (typeof exports === 'object') {
 
     var marionette = require('marionette');
-    var babysitter = require('babysitter');
+    var babysitter = require('backbone.babysitter');
     var underscore = require('underscore');
 
     module.exports = factory(marionette, babysitter, underscore);
 
   } else if (typeof define === 'function' && define.amd) {
 
-    define(['marionette', 'babysitter', 'underscore'], factory);
+    define(['marionette', 'backbone.babysitter', 'underscore'], factory);
 
   }
 }(this, function(Marionette, BabySitter, _) {

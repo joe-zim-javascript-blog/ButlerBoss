@@ -9,7 +9,9 @@ require.config({
 		backbone: "lib/backbone",					// shimmed below
 		backbonemvc: "lib/backbonemvc",				// shimmed below
 		marionette: "lib/backbone.marionette",		// has AMD built in
-		babysitter: "lib/backbone.babysitter",		// has AMD built in
+		"backbone.babysitter": "lib/backbone.babysitter",		// has AMD built in
+		"backbone.eventbinder": "lib/backbone.eventbinder",
+		"backbone.wreqr": "lib/backbone.wreqr",
 		io: "lib/socket.io",						// shimmed below
 		// RequireJS Plugins
 		text: "lib/require.text",					// RequireJS plugin. No need to shim.

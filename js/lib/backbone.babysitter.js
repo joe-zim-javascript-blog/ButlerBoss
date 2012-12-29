@@ -14,7 +14,7 @@
 
     define(['underscore', 'backbone'], factory);
 
-  } 
+  }
 }(this, function (_, Backbone) {
   "option strict";
 
