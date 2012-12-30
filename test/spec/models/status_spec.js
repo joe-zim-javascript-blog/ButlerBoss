@@ -41,7 +41,7 @@ define(
 			describe("#getStatus", function() {
 				it("should emit 'getStatus'", function() {
 					this.status.getStatus();
-					expect(this.socket.emit).wasCalledWith('getStatus');					
+					expect(this.socket.emit).wasCalledWith('getStatus');
 				});
 
 				it("should be called when the socket connects", function() {
