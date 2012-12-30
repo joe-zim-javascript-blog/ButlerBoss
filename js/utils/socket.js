@@ -4,9 +4,14 @@ define(
 
 		Socket = function(options) {
 			var self = this;
+			var socketOptions = {'auto connect': false};
+
+			if (options.io.forceNewConnection) {
+				socketOptions['force new connection'] = true;
+			}
 
 			this.vent = options.vent;
-			this.socket = io.connect(options.ioHost + ':' + options.ioPort);
+			this.socket = io.connect(options.appUrl + ':' + options.io.port, socketOptions).socket;
 			
 			this._listenTo(this.socket, {
 				'connect': this.onConnect,
@@ -15,14 +20,8 @@ define(
 		};
 
 		_.extend(Socket.prototype, {
-			connected: false,
-
-			_listenTo:function(obj, bindings) {
-				var self = this;
-
-				_.each(bindings, function(callback, event) {
-					obj.on(event, _.bind(callback, self));
-				});
+			isConnected: function() {
+				return this.socket.connected;
 			},
 
 			on: function(event, handler, context) {
@@ -37,14 +36,28 @@ define(
 				this.socket.emit.apply(this.socket, arguments);
 			},
 
+			connect: function() {
+				this.socket.connect();
+			},
+
+			disconnect: function() {
+				this.socket.disconnect();
+			},
+
 			onConnect: function() {
-				this.connected = true;
 				this.vent.trigger('status:connected');
 			},
 
 			onDisconnect: function() {
-				this.connected = false;
 				this.vent.trigger('status:disconnected');
+			},
+
+			_listenTo:function(obj, bindings) {
+				var self = this;
+
+				_.each(bindings, function(callback, event) {
+					obj.on(event, _.bind(callback, self));
+				});
 			}
 		});
 
