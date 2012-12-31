@@ -27,7 +27,7 @@ define(
 			on: function(event, handler, context) {
 				this.socket.on(event, _.bind(handler, context));
 
-				if (event === "connect" && this.connected) {
+				if (event === "connect" && this.isConnected()) {
 					handler.call(context);
 				}
 			},

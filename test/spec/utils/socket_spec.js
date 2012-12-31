@@ -10,8 +10,7 @@ define(
 			appUrl: 'http://localhost',
 			io: {
 				port: '8080',
-				forceNewConnection: true,
-
+				forceNewConnection: true
 			}
 		};
 /* END SETUP */
@@ -129,12 +128,135 @@ define(
 			});
 
 			describe("#on", function() {
+				var mock;
+				
 				beforeEach(function() {
-					this.mock = {
+					mock = {
 						testFunc: function(){}
 					};
+					spyOn(mock, "testFunc");
+				});
 
-					spyOn(this.mock, "testFunc");
+				it("adds events to the IO Socket", function() {
+					this.socket.on('event', mock.testFunc, mock);
+
+					console.log(this.socket.socket);
+
+					expect(this.socket.socket.$events.event).not.toBeNull();
+					expect(this.socket.socket.$events.event).not.toBeUndefined();
+				});
+
+				it("will call 'connect' event handlers when the socket connects", function() {
+					runs(function() {
+						this.socket.on('connect', mock.testFunc, mock);
+						this.socket.connect();
+					});
+
+					waitsFor(function(){
+						return this.socket.isConnected();
+					}, "The socket should connect", 750);
+
+					runs(function() {
+						expect(mock.testFunc).wasCalled();
+					});
+				});
+
+				it("will call 'connect' handler immediately when added if the socket is already connected", function() {
+					runs(function() {
+						this.socket.connect();
+					});
+
+					waitsFor(function(){
+						return this.socket.isConnected();
+					}, "The socket should connect", 750);
+
+					runs(function() {
+						this.socket.on('connect', mock.testFunc, mock);
+						expect(mock.testFunc).wasCalled();
+					});
+				});
+
+				it("will call 'disconnect' event handlers when the socket disconnects", function() {
+					runs(function() {
+						this.socket.on('disconnect', mock.testFunc, mock);
+						this.socket.connect();
+					});
+
+					waitsFor(function(){
+						return this.socket.isConnected();
+					}, "The socket should connect", 750);
+
+					runs(function() {
+						this.socket.disconnect();
+					});
+
+					waitsFor(function(){
+						return !this.socket.isConnected();
+					}, "The socket should disconnect", 750);
+
+					runs(function() {
+						expect(mock.testFunc).wasCalled();
+					});
+				});
+			});
+
+			describe("#emit", function() {
+				beforeEach(function() {
+					spyOn(this.socket.socket, "emit").andCallThrough();
+				});
+
+				it("calls the real socket's emit with the same arguments", function() {
+					this.socket.emit('event', 'a test argument');
+
+					expect(this.socket.socket.emit).wasCalledWith('event', 'a test argument');
+				});
+			});
+
+			describe("#onConnect", function() {
+
+				it("is called when the socket connects and triggers 'status:connected' on the vent", function() {
+					// We can't spy on onConnect because it is already assigned to run on 
+					// 'connect' in the constructor, so the spy won't be run, the original will
+					// be. So we just test to see if the effect of onConnect is carried out.
+					runs(function() {
+						this.socket.connect();
+					});
+
+					waitsFor(function(){
+						return this.socket.isConnected();
+					}, "The socket should connect", 750);
+
+					runs(function() {
+						expect(this.socket.vent.trigger).wasCalledWith('status:connected');
+					});
+				});
+			});
+
+			describe("#onDisconnect", function() {
+
+				it("is called when the socket disconnects and triggers 'status:disconnected' on the vent", function() {
+					// We can't spy on onDisconnect because it is already assigned to run on 
+					// 'disconnect' in the constructor, so the spy won't be run, the original will
+					// be. So we just test to see if the effect of onDisconnect is carried out.
+					runs(function() {
+						this.socket.connect();
+					});
+
+					waitsFor(function(){
+						return this.socket.isConnected();
+					}, "The socket should connect", 750);
+
+					runs(function() {
+						this.socket.disconnect();
+					});
+
+					waitsFor(function(){
+						return !this.socket.isConnected();
+					}, "The socket should disconnect", 750);
+
+					runs(function() {
+						expect(this.socket.vent.trigger).wasCalledWith('status:disconnected');
+					});
 				});
 			});
 		});
