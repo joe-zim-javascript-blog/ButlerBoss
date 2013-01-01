@@ -50,7 +50,7 @@ define(
 						// because if `isConnected` doesn't work, it'll show up in those tests
 						// This is also the condition for the test to pass, so no `expect`
 						return this.socket.isConnected();
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 				});
 			});
 
@@ -64,7 +64,7 @@ define(
 						// Trust `isConnected` rather than checking Socket.IO's implementation
 						// because if `isConnected` doesn't work, it'll show up in those tests
 						return this.socket.isConnected();
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						this.socket.disconnect();
@@ -75,7 +75,7 @@ define(
 						// because if `isConnected` doesn't work, it'll show up in those tests
 						// This is also the condition for the test to pass, so no `expect`
 						return !this.socket.isConnected();
-					}, "The socket should disconnect", 750);
+					}, "The socket should disconnect", 1500);
 				});
 			});
 
@@ -93,7 +93,7 @@ define(
 						// Look for internal implementation of `isConnected` since we're
 						// testing to make sure `isConnected` matches it
 						return this.socket.socket.connected;
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						expect(this.socket.isConnected()).toBeTruthy();
@@ -109,7 +109,7 @@ define(
 						// Look for internal implementation of `isConnected` since we're
 						// testing to make sure `isConnected` matches it
 						return this.socket.socket.connected;
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						this.socket.disconnect();
@@ -119,7 +119,7 @@ define(
 						// Look for internal implementation of `isConnected` since we're
 						// testing to make sure `isConnected` matches it
 						return !this.socket.socket.connected;
-					}, "The socket should disconnect", 750);
+					}, "The socket should disconnect", 1500);
 
 					runs(function() {
 						expect(this.socket.isConnected()).toBeFalsy();
@@ -152,7 +152,7 @@ define(
 
 					waitsFor(function(){
 						return this.socket.isConnected();
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						expect(mock.testFunc).wasCalled();
@@ -166,7 +166,7 @@ define(
 
 					waitsFor(function(){
 						return this.socket.isConnected();
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						this.socket.on('connect', mock.testFunc, mock);
@@ -182,7 +182,7 @@ define(
 
 					waitsFor(function(){
 						return this.socket.isConnected();
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						this.socket.disconnect();
@@ -190,7 +190,7 @@ define(
 
 					waitsFor(function(){
 						return !this.socket.isConnected();
-					}, "The socket should disconnect", 750);
+					}, "The socket should disconnect", 1500);
 
 					runs(function() {
 						expect(mock.testFunc).wasCalled();
@@ -222,7 +222,7 @@ define(
 
 					waitsFor(function(){
 						return this.socket.isConnected();
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						expect(this.socket.vent.trigger).wasCalledWith('status:connected');
@@ -242,7 +242,7 @@ define(
 
 					waitsFor(function(){
 						return this.socket.isConnected();
-					}, "The socket should connect", 750);
+					}, "The socket should connect", 1500);
 
 					runs(function() {
 						this.socket.disconnect();
@@ -250,7 +250,7 @@ define(
 
 					waitsFor(function(){
 						return !this.socket.isConnected();
-					}, "The socket should disconnect", 750);
+					}, "The socket should disconnect", 1500);
 
 					runs(function() {
 						expect(this.socket.vent.trigger).wasCalledWith('status:disconnected');
