@@ -25,7 +25,7 @@ require.config({
 		
 		// Jasmine Testing: Folder Aliases
 		spec: "../test/spec",
-		src: "../test/src"
+		helpers: "../test/helpers"
 	},
 
 	shim: {
