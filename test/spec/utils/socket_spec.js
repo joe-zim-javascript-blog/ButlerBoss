@@ -50,7 +50,7 @@ define(
 						// because if `isConnected` doesn't work, it'll show up in those tests
 						// This is also the condition for the test to pass, so no `expect`
 						return this.socket.isConnected();
-					}, "The socket should connect", 500);
+					}, "The socket should connect", 750);
 				});
 			});
 
@@ -64,7 +64,7 @@ define(
 						// Trust `isConnected` rather than checking Socket.IO's implementation
 						// because if `isConnected` doesn't work, it'll show up in those tests
 						return this.socket.isConnected();
-					}, "The socket should connect", 500);
+					}, "The socket should connect", 750);
 
 					runs(function() {
 						this.socket.disconnect();
@@ -75,7 +75,7 @@ define(
 						// because if `isConnected` doesn't work, it'll show up in those tests
 						// This is also the condition for the test to pass, so no `expect`
 						return !this.socket.isConnected();
-					}, "The socket should disconnect", 500);
+					}, "The socket should disconnect", 750);
 				});
 			});
 
@@ -93,7 +93,7 @@ define(
 						// Look for internal implementation of `isConnected` since we're
 						// testing to make sure `isConnected` matches it
 						return this.socket.socket.connected;
-					}, "The socket should connect", 500);
+					}, "The socket should connect", 750);
 
 					runs(function() {
 						expect(this.socket.isConnected()).toBeTruthy();
@@ -109,7 +109,7 @@ define(
 						// Look for internal implementation of `isConnected` since we're
 						// testing to make sure `isConnected` matches it
 						return this.socket.socket.connected;
-					}, "The socket should connect", 500);
+					}, "The socket should connect", 750);
 
 					runs(function() {
 						this.socket.disconnect();
@@ -119,7 +119,7 @@ define(
 						// Look for internal implementation of `isConnected` since we're
 						// testing to make sure `isConnected` matches it
 						return !this.socket.socket.connected;
-					}, "The socket should disconnect", 500);
+					}, "The socket should disconnect", 750);
 
 					runs(function() {
 						expect(this.socket.isConnected()).toBeFalsy();
@@ -139,8 +139,6 @@ define(
 
 				it("adds events to the IO Socket", function() {
 					this.socket.on('event', mock.testFunc, mock);
-
-					console.log(this.socket.socket);
 
 					expect(this.socket.socket.$events.event).not.toBeNull();
 					expect(this.socket.socket.$events.event).not.toBeUndefined();

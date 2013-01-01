@@ -4,21 +4,22 @@ require.config({
 
 	paths: {
 		// Libraries.
-		jquery: "lib/jquery",						// has AMD built in
-		underscore: "lib/lodash",					// has AMD built in (underscore doesn't but lodash does)
-		backbone: "lib/backbone",					// shimmed below
-		backbonemvc: "lib/backbonemvc",				// shimmed below
-		marionette: "lib/backbone.marionette",		// has AMD built in
-		"backbone.babysitter": "lib/backbone.babysitter",		// has AMD built in
-		"backbone.eventbinder": "lib/backbone.eventbinder",
-		"backbone.wreqr": "lib/backbone.wreqr",
-		io: "lib/socket.io",						// shimmed below
+		jquery: "lib/jquery",								// has AMD built in
+		underscore: "lib/lodash",							// has AMD built in (underscore doesn't but lodash does)
+		backbone: "lib/backbone",							// shimmed below
+		backbonemvc: "lib/backbonemvc",						// shimmed below
+		marionette: "lib/backbone.marionette",				// has AMD built in
+		// Marionette's extra dependencies
+		"backbone.babysitter": "lib/backbone.babysitter",	// has AMD built in
+		"backbone.eventbinder": "lib/backbone.eventbinder",	// has AMD built in
+		"backbone.wreqr": "lib/backbone.wreqr",				// has AMD built in
+		io: "lib/socket.io",								// shimmed below
 		// RequireJS Plugins
-		text: "lib/require.text",					// RequireJS plugin. No need to shim.
-		tpl: "lib/require.tpl",						// RequireJS plugin. No need to shim.
+		text: "lib/require.text",							// RequireJS plugin. No need to shim.
+		tpl: "lib/require.tpl",								// RequireJS plugin. No need to shim.
 		// jQuery ParseUrl Plugin
-		parseUrl: "lib/jquery.parseurl",			// shimmed below
-		bootstrap: "lib/bootstrap"					// shimmed below
+		parseUrl: "lib/jquery.parseurl",					// shimmed below
+		bootstrap: "lib/bootstrap"							// shimmed below
 	},
 
 	shim: {
