@@ -3,16 +3,18 @@ define(
 	function(io, _) {
 
 		Socket = function(options) {
-			var self = this;
-			var socketOptions = {'auto connect': false};
+			var settings = {
+				port: '8080',
+				'auto connect': false
+			};
 
-			if (options.io.forceNewConnection) {
-				socketOptions['force new connection'] = true;
+			if (typeof options.io === "object") {
+				_.extend(settings, options.io);
 			}
 
 			this.vent = options.vent;
-			this.socket = io.connect(options.appUrl + ':' + options.io.port, socketOptions).socket;
-			
+			this.socket = io.connect(':' + settings.port, settings).socket;
+
 			this._listenTo(this.socket, {
 				'connect': this.onConnect,
 				'disconnect': this.onDisconnect
