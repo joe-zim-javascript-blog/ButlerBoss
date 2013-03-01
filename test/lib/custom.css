@@ -1,0 +1,32 @@
+#sandbox { font-size: 10px; line-height: 12px; background: #fff; color:#999;}
+#sandbox * { margin:0; padding:0;}
+
+#HTMLReporter .symbolSummary { overflow: hidden; *zoom: 1; margin: 8px 0; }
+#HTMLReporter .symbolSummary li { display: block; float: left; height: 11px; width: 11px; }
+#HTMLReporter .symbolSummary li.passed:before { color: #590; content: "\2714"; }
+#HTMLReporter .symbolSummary li.failed:before { color: #920; content: "\2716"; }
+#HTMLReporter .symbolSummary li.skipped:before { color: #bababa; content: "\02022"; }
+#HTMLReporter .symbolSummary li.pending:before { color: #aaaaaa; content: "-"; }
+#HTMLReporter .symbolSummary li.passed, #HTMLReporter .symbolSummary li.failed,
+#HTMLReporter .symbolSummary li.skiped, #HTMLReporter .symbolSummary li.pending
+	{ font-size:11px; line-height:11px; }
+
+#HTMLReporter .bar { line-height: 20px; font-size: 12px; }
+#HTMLReporter .passingAlert { background-color: #590; }
+#HTMLReporter .passingAlert:first-child { background-color: #590; }
+#HTMLReporter .failingAlert { background-color: #920; }
+
+#HTMLReporter .summary .specSummary a, #HTMLReporter .suite a { position:relative; padding-left: 14px; }
+#HTMLReporter .summary .specSummary.passed a { color: #590; }
+#HTMLReporter .summary .specSummary.failed a { color: #920; }
+#HTMLReporter .summary .specSummary.passed a:before { color: #590; position: absolute; top: 0; left: 0; content:"\2714"; }
+#HTMLReporter .summary .specSummary.failed a:before { color: #920; position: absolute; top: 0; left: 0; content:"\2716"; }
+
+#HTMLReporter .suite { margin-top: 7px; }
+#HTMLReporter .suite .specSummary { height: 0; opacity: 0; transition-property: all; transition-duration: 0.5s; transition-timing-function: ease-in-out; }
+#HTMLReporter .suite:hover > .specSummary, #HTMLReporter .suite .specSummary.failed { height: 12px; opacity: 1; }
+#HTMLReporter .suite.passed > a:before { color: #590; position: absolute; top: 0; left: 0; content:"\2714";}
+#HTMLReporter .suite.failed > a:before { color: #920; position: absolute; top: 0; left: 0; content:"\2716";}
+
+#HTMLReporter #details .specDetail .description { background-color: #920; }
+#HTMLReporter .stackTrace { max-height: 100px; font-size:11px; }
