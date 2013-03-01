@@ -72,7 +72,7 @@ require(['underscore', 'jquery'], function(_, $){
 	// Add links to the spec files here
 	var specs = [];
 	specs.push('spec/lib/namedmultiregion_spec');
-	specs.push('spec/models/status_spec');
+	specs.push('spec/utils/communicator_spec');
 	specs.push('spec/utils/socket_spec');
 
 	// Execute specs
