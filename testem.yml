@@ -1,5 +1,5 @@
 framework: jasmine 
-test_page: test/index.html
+test_page: public/test/index.html
 src_files:
 - public/js/**
 - public/test/**
