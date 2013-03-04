@@ -1,6 +1,6 @@
 define(
-	['models/status', 'backbone'],
-	function(Status, Backbone) {
+	['utils/communicator', 'backbone'],
+	function(Communicator, Backbone) {
 
 /* SETUP */
 		var VentMock = function(){};
@@ -14,7 +14,7 @@ define(
 /* END SETUP */
 
 /* TESTS */
-		describe("Status Model", function() {
+		describe("Communicator Model", function() {
 			beforeEach(function(){
 				this.vent = new VentMock();
 				spyOn(this.vent, 'on').andCallThrough();
@@ -24,15 +24,15 @@ define(
 				spyOn(this.socket, 'on').andCallThrough();
 				spyOn(this.socket, 'emit').andCallThrough();
 
-				this.status = new Status({
+				this.communicator = new Communicator({
 					vent: this.vent,
 					socket: this.socket
 				});
 			});
 
 			it('should be initiated with socket and vent', function(){
-				expect(this.status.vent).toBe(this.vent);
-				expect(this.status.socket).toBe(this.socket);
+				expect(this.communicator.vent).toBe(this.vent);
+				expect(this.communicator.socket).toBe(this.socket);
 
 				expect(this.vent.on).toHaveBeenCalled();
 				expect(this.socket.on).toHaveBeenCalled();
@@ -40,7 +40,7 @@ define(
 
 			describe("#getStatus", function() {
 				it("should emit 'getStatus'", function() {
-					this.status.getStatus();
+					this.communicator.getStatus();
 					expect(this.socket.emit).wasCalledWith('getStatus');
 				});
 
@@ -62,7 +62,7 @@ define(
 							return 1;
 						}
 					};
-					this.status.start(mockServer);
+					this.communicator.start(mockServer);
 					expect(this.socket.emit).wasCalledWith('start', 1);
 				});
 
@@ -84,7 +84,7 @@ define(
 							return 1;
 						}
 					};
-					this.status.stop(mockServer);
+					this.communicator.stop(mockServer);
 					expect(this.socket.emit).wasCalledWith('stop', 1);
 				});
 
@@ -106,7 +106,7 @@ define(
 							return 1;
 						}
 					};
-					this.status.issueCommand(mockServer, 'testCommand');
+					this.communicator.issueCommand(mockServer, 'testCommand');
 					expect(this.socket.emit).wasCalledWith('command', 1, 'testCommand');
 				});
 
@@ -126,7 +126,7 @@ define(
 					var mockObject = {};
 					var text = "text";
 
-					this.status.onConsole(mockObject, text);
+					this.communicator.onConsole(mockObject, text);
 					expect(this.vent.trigger).wasCalledWith('status:console', mockObject, text);
 				});
 
@@ -143,7 +143,7 @@ define(
 				it("should trigger 'status:received'", function() {
 					var mockObject = {};
 
-					this.status.onStatus(mockObject);
+					this.communicator.onStatus(mockObject);
 					expect(this.vent.trigger).wasCalledWith('status:received', mockObject);
 				});
 
@@ -159,7 +159,7 @@ define(
 				it("should trigger 'status:fail'", function() {
 					var mockErr = {};
 
-					this.status.onFail(mockErr);
+					this.communicator.onFail(mockErr);
 					expect(this.vent.trigger).wasCalledWith('status:fail', mockErr);
 				});
 

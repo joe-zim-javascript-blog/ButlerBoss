@@ -2,8 +2,8 @@ define(
 	['underscore'],
 	function(_) {
 
-		var Status = function(options) {
-			
+		var Communicator = function(options) {
+
 			this.socket = options.socket;
 			this.vent = options.vent;
 
@@ -22,7 +22,7 @@ define(
 			});
 		};
 
-		_.extend(Status.prototype, {
+		_.extend(Communicator.prototype, {
 
 			_listenTo:function(obj, bindings) {
 				var self = this;
@@ -61,7 +61,7 @@ define(
 			}
 		});
 
-		return Status;
+		return Communicator;
 
 	}
 );
