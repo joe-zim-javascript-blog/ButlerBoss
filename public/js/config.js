@@ -7,7 +7,7 @@ require.config({
 		jquery: "lib/jquery",								// has AMD built in
 		underscore: "lib/lodash",							// has AMD built in (underscore doesn't but lodash does)
 		backbone: "lib/backbone",							// shimmed below
-		backbonemvc: "lib/backbonemvc",						// shimmed below
+/*		backbonemvc: "lib/backbonemvc",						// shimmed below*/
 		marionette: "lib/backbone.marionette",				// has AMD built in
 		// Marionette's extra dependencies
 		"backbone.babysitter": "lib/backbone.babysitter",	// has AMD built in
@@ -19,7 +19,7 @@ require.config({
 		tpl: "lib/require.tpl",								// RequireJS plugin. No need to shim.
 		// jQuery ParseUrl Plugin
 		parseUrl: "lib/jquery.parseurl",					// shimmed below
-		bootstrap: "lib/bootstrap"							// shimmed below
+		"tb-plugins": "lib/bootstrap"						// shimmed below
 	},
 
 	shim: {
@@ -32,10 +32,10 @@ require.config({
 		// BackboneMVC needs Backbone
 		// It also needs jQuery and Underscore, but Backbone `require`s them and they still attach
 		// themselves to `window` so it'll work either way.
-		'backbonemvc':  {
-			deps: ["backbone"],
-			exports: "BackboneMVC"
-		},
+		// 'backbonemvc':  {
+		// 	deps: ["backbone"],
+		// 	exports: "BackboneMVC"
+		// },
 
 		// Socket.io needs to export its library
 		'io': {
@@ -49,8 +49,8 @@ require.config({
 			exports: "$.parseUrl"
 		},
 
-		// Multiple jQuery plugins. Do not export anything specific. It's all exposed through `$`
-		'bootstrap': ['jquery']
+		// Multiple jQuery plugins. Do not export anything specific. It's all exposed through `jQuery`
+		'tb-plugins': ['jquery']
 
 	}
 

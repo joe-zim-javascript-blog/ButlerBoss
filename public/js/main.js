@@ -1,14 +1,8 @@
 require(
-	['app', 'backbone',
-	// These ones return initializers
-	'bootstrap-models', 'bootstrap-views', 'bootstrap-controllers',
-	// This just initializes plugins
-	'bootstrap'],
-	function(App, Backbone, modelInit, viewInit, controllerInit ) {
+	['app', 'backbone', 'bootstrap-app', 'tb-plugins'],
+	function(App, Backbone, bootstrap ) {
 
-		App.addInitializer(modelInit);
-		App.addInitializer(viewInit);
-		App.addInitializer(controllerInit);
+		App.addInitializer(bootstrap);
 
 		App.addInitializer(function(options) {
 			Backbone.history.start();
@@ -20,6 +14,6 @@ require(
 		});
 
 		App.vent.on('all', function(){ console.log(arguments); });
-		
+
 	}
 );
