@@ -10,6 +10,4 @@ file_server.create(server, __dirname + '/public');
 io_server.create(server);
 
 server.listen(port);
-console.log("File Server created");
-console.log("Socket.IO Server created");
-console.log("Servers listening on port " + port);
+console.info("File Server and Socket.IO Server listening on port " + port);
