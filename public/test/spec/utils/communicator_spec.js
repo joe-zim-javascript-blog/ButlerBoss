@@ -34,24 +34,18 @@ define(
 				expect(this.communicator.vent).toBe(this.vent);
 				expect(this.communicator.socket).toBe(this.socket);
 
-				expect(this.vent.on).toHaveBeenCalled();
 				expect(this.socket.on).toHaveBeenCalled();
 			});
 
 			describe("#getStatus", function() {
 				it("should emit 'getStatus'", function() {
 					this.communicator.getStatus();
-					expect(this.socket.emit).wasCalledWith('getStatus');
+					expect(this.socket.emit).wasCalledWith('getStatus', jasmine.any(Function));
 				});
 
 				it("should be called when the socket connects", function() {
 					this.socket.trigger('connect');
-					expect(this.socket.emit).wasCalledWith('getStatus');
-				});
-
-				it("should be called when vent triggers 'status:get'", function() {
-					this.vent.trigger('status:get');
-					expect(this.socket.emit).wasCalledWith('getStatus');
+					expect(this.socket.emit).wasCalledWith('getStatus', jasmine.any(Function));
 				});
 			});
 
@@ -63,17 +57,7 @@ define(
 						}
 					};
 					this.communicator.start(mockServer);
-					expect(this.socket.emit).wasCalledWith('start', 1);
-				});
-
-				it("should be called when vent triggers 'server:start'", function() {
-					var mockServer = {
-						get: function() {
-							return 1;
-						}
-					};
-					this.vent.trigger('server:start', mockServer);
-					expect(this.socket.emit).wasCalledWith('start', 1);
+					expect(this.socket.emit).wasCalledWith('start', 1, jasmine.any(Function));
 				});
 			});
 
@@ -85,17 +69,7 @@ define(
 						}
 					};
 					this.communicator.stop(mockServer);
-					expect(this.socket.emit).wasCalledWith('stop', 1);
-				});
-
-				it("should be called when vent triggers 'server:stop", function() {
-					var mockServer = {
-						get: function() {
-							return 1;
-						}
-					};
-					this.vent.trigger('server:stop', mockServer);
-					expect(this.socket.emit).wasCalledWith('stop', 1);
+					expect(this.socket.emit).wasCalledWith('stop', 1, jasmine.any(Function));
 				});
 			});
 
@@ -107,17 +81,7 @@ define(
 						}
 					};
 					this.communicator.issueCommand(mockServer, 'testCommand');
-					expect(this.socket.emit).wasCalledWith('command', 1, 'testCommand');
-				});
-
-				it("should be called when vent triggers 'server:command'", function() {
-					var mockServer = {
-						get: function() {
-							return 1;
-						}
-					};
-					this.vent.trigger('server:command', mockServer, 'testCommand');
-					expect(this.socket.emit).wasCalledWith('command', 1, 'testCommand');
+					expect(this.socket.emit).wasCalledWith('command', 1, 'testCommand', jasmine.any(Function));
 				});
 			});
 
@@ -152,22 +116,6 @@ define(
 
 					this.socket.trigger('status', mockObject);
 					expect(this.vent.trigger).wasCalledWith('status:received', mockObject);
-				});
-			});
-
-			describe("#onFail", function() {
-				it("should trigger 'status:fail'", function() {
-					var mockErr = {};
-
-					this.communicator.onFail(mockErr);
-					expect(this.vent.trigger).wasCalledWith('status:fail', mockErr);
-				});
-
-				it("should be called when socket emits 'fail'", function() {
-					var mockErr = {};
-
-					this.socket.trigger('fail', mockErr);
-					expect(this.vent.trigger).wasCalledWith('status:fail', mockErr);
 				});
 			});
 
