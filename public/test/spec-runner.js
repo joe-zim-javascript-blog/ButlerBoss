@@ -22,7 +22,7 @@ require.config({
 		// jQuery ParseUrl Plugin
 		parseUrl: "lib/jquery.parseurl",					// shimmed below
 		bootstrap: "lib/bootstrap",							// shimmed below
-		
+
 		// Jasmine Testing: Folder Aliases
 		spec: "../test/spec",
 		helpers: "../test/helpers"
@@ -74,6 +74,7 @@ require(['underscore', 'jquery'], function(_, $){
 	specs.push('spec/lib/namedmultiregion_spec');
 	specs.push('spec/utils/communicator_spec');
 	specs.push('spec/utils/lazy-loader_spec');
+	specs.push('spec/utils/specialized-loader_spec');
 	specs.push('spec/utils/socket_spec');
 
 	// Execute specs
@@ -82,5 +83,5 @@ require(['underscore', 'jquery'], function(_, $){
 			jasmineEnv.execute();
 		});
 	});
- 
+
 });

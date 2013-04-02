@@ -1,45 +1,29 @@
 define(
-	['underscore', 'jquery'],
-	function(_, $) {
+	['jquery'],
+	function($) {
 
 		/**
-		 * LazyLoader is a generic class for helping us lazy load modules with
+		 * LazyLoader is a generic object for helping us lazy load modules with
 		 * RequireJS.
 		 *
 		 * Usage:
-		 * First we create a new LazyLoader object. We pass in a 'type' which will be used
-		 * as a path prefix:
-		 * var getter = new LazyLoader('utils');
+		 * Simply call `get`, passing in an arbitrary number of string paths to 
+		 * RequireJS modules. `get` will return a promise, which you can use to
+		 * get access to the loaded modules when they are ready.
 		 *
-		 * Now if you wish to get a module from the 'utils' directory, you can use this
-		 * getter just by passing in the file name:
-		 * var promise = getter.get('communicator');
-		 *
-		 * That will retreive utils/communicator.js using RequireJS. `get` returns a promise,
-		 * so you can use `then` to actually extract the module:
-		 * var module;
-		 * promise.then(function(retreivedModule){
-		 *	module = retreivedModule;
-		 * });
-		 *
-		 * You can also send in multiple strings to get multiple modules at once:
-		 * getter.get('communicator', 'socket').then(function(Communicator, Socket) {
-		 *  // Do stuff with both Communicator and Socket
+		 * LazyLoader.get('path/to/module1', 'module2').then(function(Mod1, Mod2){
+		 *     // Use Mod1 and Mod2 however you like.
 		 * });
 		 */
-		var LazyLoader = function(type) {
-			this.type = type;
-		};
-
-		_.extend(LazyLoader.prototype, {
+		var LazyLoader = {
 			get: function() {
 				var fileNames = Array.prototype.slice.call(arguments);
-				var dfd = $.Deferred();
+				var dfd = $.Deferred();/*
 				var path = this.type + "/";
 
 				fileNames = _.map(fileNames, function(fileName){
 					return path + fileName;
-				});
+				});*/
 
 				require(fileNames, function() {
 					dfd.resolve.apply(dfd, arguments);
@@ -47,7 +31,7 @@ define(
 
 				return dfd.promise();
 			}
-		});
+		};
 
 		return LazyLoader;
 

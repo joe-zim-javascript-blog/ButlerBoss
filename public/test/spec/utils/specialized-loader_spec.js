@@ -1,17 +1,24 @@
 define(
-	['utils/lazy-loader'],
-	function(loader) {
+	['utils/specialized-loader'],
+	function(SpecializedLoader) {
 
 /* SETUP */
-
+	var type = "utils";
 /* END SETUP */
 
 /* TESTS */
-		describe("Lazy Loader", function() {
+		describe("Specialized Lazy Loader", function() {
+			beforeEach(function(){
+				this.loader = new SpecializedLoader(type);
+			});
+
+			it('should be initiated with path prefix', function(){
+				expect(this.loader.path).toBe(type);
+			});
 
 			describe("#get", function() {
 				it("should return a Promise Object", function() {
-					var promise = loader.get('utils/communicator');
+					var promise = this.loader.get('communicator');
 
 					expect(promise.then).toEqual(jasmine.any(Function));
 				});
@@ -21,7 +28,7 @@ define(
 					var done = false;
 
 					runs(function(){
-						loader.get('utils/communicator').then(function(m){
+						this.loader.get('communicator').then(function(m){
 							module1 = m;
 							done = true;
 						});
@@ -41,7 +48,7 @@ define(
 					var done = false;
 
 					runs(function(){
-						loader.get('utils/communicator', 'utils/socket').then(function(m1, m2){
+						this.loader.get('communicator', 'socket').then(function(m1, m2){
 							module1 = m1;
 							module2 = m2;
 							done = true;
