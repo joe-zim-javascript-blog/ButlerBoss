@@ -18,12 +18,7 @@ define(
 		var LazyLoader = {
 			get: function() {
 				var fileNames = Array.prototype.slice.call(arguments);
-				var dfd = $.Deferred();/*
-				var path = this.type + "/";
-
-				fileNames = _.map(fileNames, function(fileName){
-					return path + fileName;
-				});*/
+				var dfd = $.Deferred();
 
 				require(fileNames, function() {
 					dfd.resolve.apply(dfd, arguments);
