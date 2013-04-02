@@ -40,12 +40,12 @@ define(
 			describe("#getStatus", function() {
 				it("should emit 'getStatus'", function() {
 					this.communicator.getStatus();
-					expect(this.socket.emit).wasCalledWith('getStatus', jasmine.any(Function));
+					expect(this.socket.emit).wasCalledWith('getStatus');
 				});
 
 				it("should be called when the socket connects", function() {
 					this.socket.trigger('connect');
-					expect(this.socket.emit).wasCalledWith('getStatus', jasmine.any(Function));
+					expect(this.socket.emit).wasCalledWith('getStatus');
 				});
 			});
 
@@ -57,7 +57,7 @@ define(
 						}
 					};
 					this.communicator.start(mockServer);
-					expect(this.socket.emit).wasCalledWith('start', 1, jasmine.any(Function));
+					expect(this.socket.emit).wasCalledWith('start', 1);
 				});
 			});
 
@@ -69,7 +69,7 @@ define(
 						}
 					};
 					this.communicator.stop(mockServer);
-					expect(this.socket.emit).wasCalledWith('stop', 1, jasmine.any(Function));
+					expect(this.socket.emit).wasCalledWith('stop', 1);
 				});
 			});
 
@@ -81,7 +81,7 @@ define(
 						}
 					};
 					this.communicator.issueCommand(mockServer, 'testCommand');
-					expect(this.socket.emit).wasCalledWith('command', 1, 'testCommand', jasmine.any(Function));
+					expect(this.socket.emit).wasCalledWith('command', 1, 'testCommand');
 				});
 			});
 
@@ -103,18 +103,18 @@ define(
 				});
 			});
 
-			describe("#onStatus", function() {
+			describe("#onStatusUpdate", function() {
 				it("should trigger 'status:received'", function() {
 					var mockObject = {};
 
-					this.communicator.onStatus(mockObject);
+					this.communicator.onStatusUpdate(mockObject);
 					expect(this.vent.trigger).wasCalledWith('status:received', mockObject);
 				});
 
 				it("should be called when socket emits 'status'", function() {
 					var mockObject = {};
 
-					this.socket.trigger('status', mockObject);
+					this.socket.trigger('status-update', mockObject);
 					expect(this.vent.trigger).wasCalledWith('status:received', mockObject);
 				});
 			});

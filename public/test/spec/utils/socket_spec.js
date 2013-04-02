@@ -202,10 +202,10 @@ define(
 					spyOn(this.appSocket.socket, "emit").andCallThrough();
 				});
 
-				it("calls the real socket's emit with the same arguments", function() {
+				it("calls the real socket's emit with the same arguments plus a deferred resolver", function() {
 					this.appSocket.emit('event', 'a test argument');
 
-					expect(this.appSocket.socket.emit).wasCalledWith('event', 'a test argument');
+					expect(this.appSocket.socket.emit).wasCalledWith('event', 'a test argument', jasmine.any(Function));
 				});
 			});
 

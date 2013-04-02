@@ -34,8 +34,30 @@ define(
 				}
 			},
 
+			/*
+				Pass each `emit` a "deferred resolver" function that will be called on the back
+				end to inform the front end of either success or failure. The resolver will resolve
+				or reject the deferred promise that we return.
+			*/
 			emit: function() {
+				var dfd = new $.Deferred();
+				Array.prototype.push.call(arguments, this._getDeferredResolver(dfd));
 				this.socket.emit.apply(this.socket, arguments);
+				return dfd.promise();
+			},
+
+			/*
+				Return a function that is used as a callback to resolve or reject a deferred
+				based on value of the first argument.
+			*/
+			_getDeferredResolver: function(dfd) {
+				return function(success, errorMessage) {
+					if (success) {
+						dfd.resolve();
+					} else {
+						dfd.reject(errorMessage);
+					}
+				};
 			},
 
 			connect: function() {
