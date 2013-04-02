@@ -73,6 +73,7 @@ require(['underscore', 'jquery'], function(_, $){
 	var specs = [];
 	specs.push('spec/lib/namedmultiregion_spec');
 	specs.push('spec/utils/communicator_spec');
+	specs.push('spec/utils/lazy-loader_spec');
 	specs.push('spec/utils/socket_spec');
 
 	// Execute specs
