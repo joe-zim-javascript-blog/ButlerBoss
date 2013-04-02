@@ -14,7 +14,7 @@ define(
 /* END SETUP */
 
 /* TESTS */
-		describe("Communicator Model", function() {
+		describe("Communicator Utility", function() {
 			beforeEach(function(){
 				this.vent = new VentMock();
 				spyOn(this.vent, 'on').andCallThrough();
