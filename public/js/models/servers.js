@@ -4,7 +4,7 @@ define(
 
 		var ServerCollection = Backbone.Collection.extend({
 			model: Server,
-			url: 'app/servers.json' // servers
+			url: '../application/servers.json' // servers
 		});
 
 		return ServerCollection;

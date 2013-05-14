@@ -4,7 +4,7 @@ define(
 
 		Socket = function(options) {
 			var settings = {
-				port: '8080',
+				port: '80',
 				'auto connect': false
 			};
 
@@ -13,7 +13,7 @@ define(
 			}
 
 			this.vent = options.vent;
-			this.socket = io.connect(':' + settings.port, settings).socket;
+			this.socket = io.connect(':' + settings.port, settings);
 
 			this._listenTo(this.socket, {
 				'connect': this.onConnect,
@@ -61,11 +61,11 @@ define(
 			},
 
 			connect: function() {
-				this.socket.connect();
+				this.socket.socket.connect();
 			},
 
 			disconnect: function() {
-				this.socket.disconnect();
+				this.socket.socket.disconnect();
 			},
 
 			onConnect: function() {

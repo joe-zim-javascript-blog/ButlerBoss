@@ -24,7 +24,7 @@ define(
 				});
 
 				it("should retreive a module", function() {
-					var module1p, module1;
+					var module1;
 					var done = false;
 
 					runs(function(){
