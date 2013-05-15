@@ -4,12 +4,11 @@ define(
 
 		var MainLayout =  Marionette.Layout.extend({
 			template: template,
+			id: "App-El-MainLayout",
 
 			regions: {
-				listTab: "#ListTab",
-				runningTab: "#RunningTab",
-				listTabContent: "#ListTabContent",
-				runningTabContent: "#RunningTabContent"
+				main: "#App-Main",
+				footer: "#App-Footer"
 			}
 		});
 

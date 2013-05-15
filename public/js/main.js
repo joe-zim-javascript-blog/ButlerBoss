@@ -3,7 +3,7 @@ require(
 	function(App, Backbone, bootstrap ) {
 
 		var options = {
-			mainContainer: '#AppContainer',
+			mainContainer: '#App-Container',
 			host: window.location.protocol + "//" + window.location.hostname,
 			vent: App.vent,
 			io: {

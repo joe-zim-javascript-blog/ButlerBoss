@@ -4,9 +4,7 @@ define(
 
 		var MainRouter = Marionette.AppRouter.extend({
 			appRoutes: {
-				"": "index",
-				"edit/:id": "editServer",
-				"add": "addServer"
+				"": "index"
 			}
 		});
 
