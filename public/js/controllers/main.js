@@ -1,6 +1,6 @@
 define(
-	['app', 'marionette', 'jquery', 'models/servers'],
-	function(App, Marionette, $, Servers) {
+	['marionette', 'jquery', 'models/servers', 'views/layout-main'],
+	function(Marionette, $, Servers, Layout) {
 
 		var MainController = Marionette.Controller.extend({
 
@@ -9,7 +9,7 @@ define(
 
 				this.options.mainContainer = this.options.mainContainer || "#App-Container";
 				this.$el = $(this.options.mainContainer);
-				this.vent = this.options.vent || App.vent;
+				this.vent = this.options.vent;
 
 				this.initializeData();
 				this.initializeLayout();
@@ -21,18 +21,20 @@ define(
 			},
 
 			initializeLayout: function() {
-				var controller = this;
+				App.layout = new Layout(this.options);
+				App.layout.render();
 
-				App.View.get('layout-main').then(function(Servers, Layout) {
-					App.layout = new Layout(controller.options);
-					App.layout.render();
-
-					controller.$el.empty().append(App.layout.el);
-				});
+				this.$el.empty().append(App.layout.el);
 			},
 
 			index: function() {
+				var controller = this;
+				App.View.get('tab-container').then(function(TabContainer){
+					var tabContainer = new TabContainer(controller.options);
+					App.layout.main.show(tabContainer);
 
+					window.tabs = tabContainer;
+				});
 			}
 
 		});

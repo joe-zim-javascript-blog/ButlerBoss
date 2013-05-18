@@ -5,7 +5,7 @@ define(
 		var Server = Backbone.Model.extend({
 			defaults: {
 				id: '',
-				serverName: '',
+				name: '',
 				isRunning: false,
 				console: ''
 			},
