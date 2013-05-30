@@ -2,12 +2,12 @@ define(
 	['marionette'],
 	function(Marionette) {
 
-		var TabContentView = Marionette.ItemView.extend({
+		var TabContentCollectionView = Marionette.CollectionView.extend({
 			tagName: 'div',
 			className: 'tab-content'
 		});
 
-		return TabContentView;
+		return TabContentCollectionView;
 
 	}
 );

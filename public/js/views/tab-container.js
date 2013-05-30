@@ -27,24 +27,9 @@ define(
 				}
 			},
 
-			_defaultSettings: {
-				tab: {
-					viewType: TabView,
-					options: {},
-					name: ''
-				},
-				content: {
-					viewType: TabContentView,
-					options: {},
-					name: ''
-				}
-			},
-
-			addTab: function(options, name) {
-				options = _.extend({}, this._defaultSettings, options);
-
-				this._insertView(options, "tab", name);
-				this._insertView(options, "content", name);
+			addTab: function(name, tabView, tabContentView) {
+				this.tab.show(name, tabView);
+				this.content.show(name, tabContentView);
 
 				this.trigger('tab:added');
 			},
@@ -54,24 +39,6 @@ define(
 				this.content.close(name);
 
 				this.trigger('tab:removed');
-			},
-
-			_insertView: function(options, region, name) {
-				options = options[region];
-				var view = this._createView(options, name);
-
-				// If no name was specified, just use the views cid
-				name = name || view.cid;
-
-				this[region].show(view, name);
-			},
-
-			_createView: function(options, name) {
-				var View = options.viewType;
-				options = options.options;
-				options.name = name;
-
-				return new View(options);
 			}
 		});
 
