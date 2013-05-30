@@ -20,7 +20,7 @@ require(
 
 		App.start(options);
 
-		App.vent.on('all', function(){ console.log(arguments); });
+		App.vent.on('all', function(){ console.log.apply(console, arguments); });
 
 	}
 );
