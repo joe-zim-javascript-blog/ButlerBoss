@@ -2,6 +2,8 @@ define(
 	['marionette', 'tpl!templates/tab.tpl'],
 	function(Marionette, template) {
 
+		var activeClass = 'active';
+
 		var TabView = Marionette.ItemView.extend({
 			tagName: 'li',
 			template: template,
@@ -24,6 +26,14 @@ define(
 			initialize: function(options) {
 				this.tabTitle = options.tabTitle;
 				this.tabContentId = options.tabContentId;
+			},
+
+			activate: function() {
+				this.$el.addClass(activeClass);
+			},
+
+			deactivate: function() {
+				this.$el.removeClass(activeClass);
 			}
 		});
 

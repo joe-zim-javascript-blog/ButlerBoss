@@ -79,6 +79,10 @@
 				return this;
 			},
 
+			get: function(name) {
+				return this.viewStore.findByCustom(name);
+			},
+
 			_closeView: function(view) {
 				if (_.isFunction(view.close)) {
 					view.close();
