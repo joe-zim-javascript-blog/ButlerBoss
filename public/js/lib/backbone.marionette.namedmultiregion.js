@@ -83,6 +83,10 @@
 				return this.viewStore.findByCustom(name);
 			},
 
+			length: function() {
+				return this.viewStore.length;
+			},
+
 			_closeView: function(view) {
 				if (_.isFunction(view.close)) {
 					view.close();
