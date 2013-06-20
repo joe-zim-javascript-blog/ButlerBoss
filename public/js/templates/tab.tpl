@@ -1,1 +1,1 @@
-<a href="#<%= tabContentId() %>" data-toggle="tab"><%= tabTitle() %></a>
+<a href="#<%= tabContentId %>" data-toggle="tab"><%= tabTitle %></a>
