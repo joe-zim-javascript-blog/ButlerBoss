@@ -1,6 +1,6 @@
 define(
-	['marionette', 'jquery', 'models/servers', 'views/layout-main'],
-	function(Marionette, $, Servers, Layout) {
+	['marionette', 'jquery', 'models/servers', 'views/layout-main', 'utils/tab-manager'],
+	function(Marionette, $, Servers, Layout, TabManager) {
 
 		var MainController = Marionette.Controller.extend({
 
@@ -28,13 +28,8 @@ define(
 			},
 
 			index: function() {
-				var controller = this;
-				App.View.get('tab-container').then(function(TabContainer){
-					var tabContainer = new TabContainer(controller.options);
-					App.layout.main.show(tabContainer);
-
-					window.tabs = tabContainer;
-				});
+				this.tabManager = new TabManager(this.options);
+				App.layout.main.show(this.tabManager.view);
 			}
 
 		});
