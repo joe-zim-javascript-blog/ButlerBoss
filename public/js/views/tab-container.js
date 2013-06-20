@@ -29,86 +29,50 @@ define(
 				}
 			},
 
-			addTab: function(name, tabView, tabContentView) {
+			addTab: function(tabContent, options) {
+				var name = options.id;
+				var tabView = this._createTabView(options);
+				var tabContentView = this._createTabContentView(options);
+
 				this.tab.show(name, tabView);
 				this.content.show(name, tabContentView);
 
-				// Make this tab active if no tabs are active
-				if (!this.activeTab) {
+				tabContentView.content.show(tabContent);
+
+				this.trigger('tab:added', name);
+
+				// Make this tab active if it's the only tab
+				if (this.tab.length() === 1) {
 					this.activateTab(name);
 				}
-
-				this.trigger('tab:added');
 			},
 
 			removeTab: function(name) {
 				this.tab.close(name);
 				this.content.close(name);
 
-				this.trigger('tab:removed');
+				this.trigger('tab:removed', name);
 			},
 
-			activateTab: function(name) {
-				var views;
-
-				if (this.activeTab) {
-					views = [
-						this.tab.get(this.activeTab), // currently active tab
-						this.content.get(this.activeTab) // currently active tab content
-					];
-
-					if (this._areTabs(views)) {
-						this._deactivate(views);
-					}
-					else {
-						throw new Error("TabContainer.activateTab: Currently active views couldn't be deactivated because they do not supply the proper functionality.");
-					}
+			activateTab: function(tab) {
+				if ( _.isString(tab) ) {
+					tab = this.tab.get(tab);
 				}
 
-				views = [
-					this.tab.get(name), // new tab to make active
-					this.content.get(name) // new tab content to make active
-				];
-
-				if (this._areTabs(views)) {
-					this._activate(views);
-					this.activeTab = name;
+				if (tab instanceof TabView) {
+					tab.$el.find('a').tab('show');
 				}
 				else {
-					throw new Error("TabContainer.activateTab: New views couldn't be activated because they do not supply the proper functionality.");
+					throw new Error('TabContainer cannot activate non-tabs: ' + tab);
 				}
 			},
 
-			_deactivate: function(views) {
-				_.invoke(views, 'deactivate');
+			_createTabView: function(options) {
+				return new TabView({tabTitle: options.title, tabContentId: options.id});
 			},
 
-			_activate: function(views){
-				_.invoke(views, 'activate');
-			},
-
-			/**
-			 * Determines if all of the views passed in have the necessary functionality to
-			 * programmatically activate and deactivate them
-			 */
-			_areTabs: function(views) {
-				var valid = true;
-				var tabContainer = this;
-
-				_.forEach(views, function(view){
-					if (!tabContainer._isTab(view)) {
-						valid = false;
-						return false;
-					}
-				});
-
-				return valid;
-			},
-
-			_isTab: function(view) {
-				var isTab = !!(view && view.activate && view.deactivate);
-
-				return isTab;
+			_createTabContentView: function(options) {
+				return new TabContentView({id: options.id});
 			}
 		});
 
