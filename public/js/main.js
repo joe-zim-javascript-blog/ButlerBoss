@@ -1,5 +1,5 @@
 require(
-	['app', 'backbone', 'bootstrap-app', 'tb-plugins'],
+	['app', 'backbone', 'bootstrap-app'],
 	function(App, Backbone, bootstrap ) {
 
 		var options = {

@@ -1,5 +1,5 @@
 define(
-	['marionette', 'underscore', 'lib/backbone.marionette.namedmultiregion', 'tpl!templates/tab-container.tpl', 'views/tab', 'views/tab-content'],
+	['marionette', 'underscore', 'lib/backbone.marionette.namedmultiregion', 'tpl!templates/tab-container.tpl', 'views/tab', 'views/tab-content', 'twitter-bootstrap'],
 	function(Marionette, _, MultiRegion, template, TabView, TabContentView) {
 
 		var TabContainer = Marionette.Layout.extend({

@@ -11,7 +11,7 @@
     ========================================================================= */
 
 @import url(font.css);
-@import url(bootstrap.css);
+@import url(../components/bootstrap-css/css/bootstrap.css);
 
 /* ==========================================================================
    Base styles: opinionated defaults

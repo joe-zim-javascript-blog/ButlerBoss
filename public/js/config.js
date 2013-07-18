@@ -4,44 +4,42 @@ require.config({
 
 	paths: {
 		// Libraries.
-		jquery: "lib/jquery",								// has AMD built in
-		underscore: "lib/lodash",							// has AMD built in (underscore doesn't but lodash does)
-		backbone: "lib/backbone",							// shimmed below
-		marionette: "lib/backbone.marionette",				// has AMD built in
-		// Marionette's extra dependencies
-		"backbone.babysitter": "lib/backbone.babysitter",	// has AMD built in
-		"backbone.eventbinder": "lib/backbone.eventbinder",	// has AMD built in
-		"backbone.wreqr": "lib/backbone.wreqr",				// has AMD built in
-		io: "lib/socket.io",								// shimmed below
+		jquery: "../components/jquery/jquery",
+		underscore: "../components/lodash/lodash",
+		backbone: "../components/backbone/backbone",
+		marionette: "../components/backbone.marionette/lib/core/amd/backbone.marionette",
+		"backbone.babysitter": "../components/backbone.babysitter/lib/amd/backbone.babysitter",
+		"backbone.wreqr": "../components/backbone.wreqr/lib/amd/backbone.wreqr",
+		io: "../components/socket.io-client/dist/socket.io",
+
 		// RequireJS Plugins
-		text: "lib/require.text",							// RequireJS plugin. No need to shim.
-		tpl: "lib/require.tpl",								// RequireJS plugin. No need to shim.
-		// jQuery ParseUrl Plugin
-		parseUrl: "lib/jquery.parseurl",					// shimmed below
-		"tb-plugins": "lib/bootstrap"						// shimmed below
+		tpl: "../components/requirejs-tpl/tpl",
+
+		// jQuery Plugins
+		"twitter-bootstrap": "../components/bootstrap-css/js/bootstrap",
+
+		// Path Aliases
+		"templates": "../templates/"
 	},
 
 	shim: {
 		// Backbone library depends on lodash and jQuery.
-		'backbone': {
+		"backbone": {
 			deps: ["jquery", "underscore"],
 			exports: "Backbone"
 		},
 
 		// Socket.io needs to export its library
-		'io': {
+		"io": {
 			deps: [],
-			exports: 'io'
+			exports: "io"
 		},
 
-		// jQuery plugin. Can use the function returned directly or via `$.parseUrl`
-		'parseUrl': {
-			deps: ['jquery'],
-			exports: "$.parseUrl"
-		},
-
-		// jQuery plugins. Do not export anything specific. It's all exposed through `jQuery`
-		'tb-plugins': ['jquery']
+		// jQuery plugins. Export $, since everything is exposed through jQuery
+		"twitter-bootstrap": {
+			deps: ["jquery"],
+			exports: "$"
+		}
 
 	}
 

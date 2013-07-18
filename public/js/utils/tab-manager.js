@@ -1,6 +1,6 @@
 define(
-	['app', 'backbone', 'jquery', 'underscore', 'views/tab-container', 'utils/normalize'],
-	function(App, Backbone, $, _, TabContainer, Normalize) {
+	['app', 'backbone', 'underscore', 'views/tab-container', 'utils/normalize'],
+	function(App, Backbone, _, TabContainer, Normalize) {
 
 		var TabManager = function(options) {
 			this.view = new TabContainer(options);

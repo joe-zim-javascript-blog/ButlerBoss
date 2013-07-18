@@ -1,0 +1,14 @@
+{
+  "name": "ButlerBoss",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap-css": "~2",
+    "jquery": "~1.9",
+    "requirejs": "latest",
+    "requirejs-tpl": "latest",
+    "backbone.marionette": "~1.0",
+    "lodash": "~1",
+    "socket.io-client": "~0.9"
+  },
+  "devDependencies": {}
+}
