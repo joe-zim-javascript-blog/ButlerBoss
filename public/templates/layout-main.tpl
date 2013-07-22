@@ -1,2 +1,2 @@
-<section id="App-Main"></section>
-<section id="App-Footer"></section>
+<section data-region-name="main"></section>
+<section data-region-name="footer"></section>

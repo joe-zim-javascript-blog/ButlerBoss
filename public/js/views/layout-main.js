@@ -4,8 +4,10 @@ define(
 
 		var MainLayout = Marionette.Layout.extend({
 			template: template,
-			id: function() {
-				return "App-" + this.cid + "-MainLayout";
+			attributes: function() {
+				return {
+					"data-view-name": "MainLayout-" + this.cid
+				};
 			},
 
 			regions: {

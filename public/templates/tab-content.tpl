@@ -1,1 +1,1 @@
-<div class="App-TabContentContainer"></div>
+<div data-region-name="content"></div>

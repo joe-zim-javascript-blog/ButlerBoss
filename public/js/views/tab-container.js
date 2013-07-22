@@ -5,8 +5,10 @@ define(
 		var TabContainer = Marionette.Layout.extend({
 			template: template,
 
-			id: function() {
-				return "App-" + this.cid + "-TabContainer";
+			attributes: function() {
+				return {
+					"data-view-name": "TabContainer-" + this.cid
+				};
 			},
 
 			className: "tabbable",
@@ -20,11 +22,11 @@ define(
 
 			regions: {
 				tab: {
-					selector: ".nav-tabs",
+					selector: "[data-region-name=tab]",
 					regionType:  MultiRegion
 				},
 				content: {
-					selector: ".tab-content",
+					selector: "[data-region-name=content]",
 					regionType:  MultiRegion
 				}
 			},

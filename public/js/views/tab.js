@@ -6,6 +6,12 @@ define(
 			tagName: 'li',
 			template: template,
 
+			attributes: function() {
+				return {
+					"data-view-name": "TabView-" + this.cid
+				};
+			},
+
 			serializeData: function() {
 				return {
 					tabTitle: this.options.tabTitle,

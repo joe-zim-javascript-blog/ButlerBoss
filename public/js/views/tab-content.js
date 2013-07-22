@@ -7,8 +7,14 @@ define(
 			className: 'tab-pane',
 			template: template,
 
+			attributes: function() {
+				return {
+					"data-view-name": "TabContentView-" + this.cid
+				};
+			},
+
 			regions: {
-				content: '.App-TabContentContainer'
+				content: '[data-region-name=content]'
 			}
 		});
 
