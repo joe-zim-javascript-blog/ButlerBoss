@@ -1,14 +1,13 @@
 define(
-	['marionette', 'jquery', 'models/servers', 'views/layout-main', 'utils/tab-manager'],
-	function(Marionette, $, Servers, Layout, TabManager) {
+	['marionette', 'underscore', 'models/servers', 'views/layout-main', 'utils/tab-manager'],
+	function(Marionette, _, Servers, Layout, TabManager) {
 
 		var MainController = Marionette.Controller.extend({
 
 			initialize: function(options) {
 				this.options = options || {};
 
-				this.options.mainContainer = this.options.mainContainer || "#App-Container";
-				this.$el = $(this.options.mainContainer);
+				this.options.mainContainer = this.options.mainContainer || "[data-view-binding=layout]";
 				this.vent = this.options.vent;
 
 				this.initializeData();
@@ -21,10 +20,9 @@ define(
 			},
 
 			initializeLayout: function() {
-				App.layout = new Layout(this.options);
+				// The layout attaches to the existing DOM
+				App.layout = new Layout({el: this.options.mainContainer});
 				App.layout.render();
-
-				this.$el.empty().append(App.layout.el);
 			},
 
 			index: function() {

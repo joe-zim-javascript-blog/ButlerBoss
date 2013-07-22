@@ -3,7 +3,7 @@ require(
 	function(App, Backbone, bootstrap ) {
 
 		var options = {
-			mainContainer: '#App-Container',
+			mainContainer: '[data-view-binding=layout]',
 			host: window.location.protocol + "//" + window.location.hostname,
 			vent: App.vent,
 			io: {
@@ -20,7 +20,7 @@ require(
 
 		App.start(options);
 
-		App.vent.on('all', function(){ console.log.apply(console, arguments); });
+		App.vent.on('all', function(){ console.log.apply(console, arguments); });window.App = App;
 
 	}
 );
