@@ -2,7 +2,7 @@
   "name": "ButlerBoss",
   "version": "0.0.1",
   "dependencies": {
-    "bootstrap-css": "~2",
+    "bootstrap": "~2",
     "jquery": "~1.9",
     "requirejs": "latest",
     "requirejs-tpl": "latest",

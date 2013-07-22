@@ -15,11 +15,9 @@ require.config({
 		// RequireJS Plugins
 		tpl: "../components/requirejs-tpl/tpl",
 
-		// jQuery Plugins
-		"twitter-bootstrap": "../components/bootstrap-css/js/bootstrap",
-
 		// Path Aliases
-		"templates": "../templates/"
+		"templates": "../templates/",
+		"bootstrap": "../components/bootstrap/js/"
 	},
 
 	shim: {
@@ -36,7 +34,7 @@ require.config({
 		},
 
 		// jQuery plugins. Export $, since everything is exposed through jQuery
-		"twitter-bootstrap": {
+		"bootstrap/bootstrap-tab": {
 			deps: ["jquery"],
 			exports: "$"
 		}
