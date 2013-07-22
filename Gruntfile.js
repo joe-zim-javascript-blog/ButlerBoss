@@ -6,14 +6,23 @@ module.exports = function(grunt) {
 				files: {
 					"public/css/main.css" : "public/less/main.less"
 				}
+			},
+			prod: {
+				options: {
+					yuicompress: true,
+					dumpLineNumbers: 'comments'
+				},
+				files: {
+					"public/css/main.css" : "public/less/main.less"
+				}
 			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-less');
 
-	grunt.registerTask('build', ['less']);
+	grunt.registerTask('build', ['less:prod']);
 
-	grunt.registerTask('default', ['less']);
+	grunt.registerTask('default', ['less:dev']);
 
 };
