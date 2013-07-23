@@ -3,6 +3,13 @@ define(
 	function(App, $, Loader, Socket, Communicator, Controller, Router) {
 
 		return function(options){
+			// Set up the main regions
+			App.addRegions({
+				header:'[data-region-name=header]',
+				main:'[data-region-name=main]',
+				footer:'[data-region-name=footer]'
+			})
+
 			// Set up the Lazy Loaders
 			App.Model = new Loader('models');
 			App.View = new Loader('views');

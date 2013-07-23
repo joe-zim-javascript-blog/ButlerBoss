@@ -9,7 +9,8 @@ require(
 			io: {
 				port: window.location.port,
 				'auto connect': true
-			}
+			},
+			minecraftServerData: minecraftServerData || null
 		};
 
 		App.addInitializer(bootstrap);

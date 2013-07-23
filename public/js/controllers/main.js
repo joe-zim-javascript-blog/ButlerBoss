@@ -1,6 +1,6 @@
 define(
-	['marionette', 'underscore', 'models/servers', 'views/layout-main', 'utils/tab-manager'],
-	function(Marionette, _, Servers, Layout, TabManager) {
+	['marionette', 'underscore', 'models/servers', 'utils/tab-manager'],
+	function(Marionette, _, Servers, TabManager) {
 
 		var MainController = Marionette.Controller.extend({
 
@@ -11,23 +11,21 @@ define(
 				this.vent = this.options.vent;
 
 				this.initializeData();
-				this.initializeLayout();
 			},
 
 			initializeData: function() {
-				App.servers = new Servers();
-				App.servers.fetch();
-			},
-
-			initializeLayout: function() {
-				// The layout attaches to the existing DOM
-				App.layout = new Layout({el: this.options.mainContainer});
-				App.layout.render();
+				if ( this.options.minecraftServerData ) {
+					App.servers = new Servers(this.options.minecraftServerData);
+				}
+				else {
+					App.servers = new Servers();
+					App.servers.fetch();
+				}
 			},
 
 			index: function() {
 				this.tabManager = new TabManager(this.options);
-				App.layout.main.show(this.tabManager.view);
+				App.main.show(this.tabManager.view);
 			}
 
 		});
