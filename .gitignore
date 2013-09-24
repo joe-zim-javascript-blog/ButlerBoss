@@ -1,3 +1,4 @@
 # We don't want the dependencies; Use `npm install` and `bower install` to get them.
 node_modules
 public/components
+public/css
