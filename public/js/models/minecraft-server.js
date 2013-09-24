@@ -2,7 +2,7 @@ define(
 	['app', 'backbone', 'underscore'],
 	function(App, Backbone, _) {
 
-		var Server = Backbone.Model.extend({
+		var MinecraftServer = Backbone.Model.extend({
 			defaults: {
 				id: '',
 				name: '',
@@ -34,7 +34,7 @@ define(
 			}
 		});
 
-		return Server;
+		return MinecraftServer;
 
 	}
 );
