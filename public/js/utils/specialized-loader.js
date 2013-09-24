@@ -11,17 +11,19 @@ define(
 		 * is used, except that the paths that you send to `get` will be prefixed
 		 * with the path that is sent to the constructor.
 		 */
-		var SpecializedLoader = function(path) {
-			this.path = path;
+		var SpecializedLoader = function(prefix, suffix) {
+			this.prefix = prefix;
+			this.suffix = suffix;
 		};
 
 		_.extend(SpecializedLoader.prototype, {
 			get: function() {
 				var fileNames = Array.prototype.slice.call(arguments);
-				var path = this.path + "/";
+				var prefix = this.prefix ? this.prefix + "/" : "";
+				var suffix = this.suffix ? "/" + this.suffix : "";
 
 				fileNames = _.map(fileNames, function(fileName){
-					return path + fileName;
+					return prefix + fileName + suffix;
 				});
 
 				return LazyLoader.get.apply(LazyLoader, fileNames);

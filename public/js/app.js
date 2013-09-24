@@ -1,13 +1,16 @@
 define(
-	['marionette'],
-	function(Marionette) {
+	['marionette', 'utils/specialized-loader'],
+	function(Marionette, Loader) {
 
-		ManagerCraftApp = Marionette.Application.extend({
-			// Right now it's just a standard app.
-			// This is just here to make it easier to start extending right away if we need it.
+		ButlerBossApp = Marionette.Application.extend({
+
+			Model: new Loader('models'),
+			View: new Loader('views'),
+			Module: new Loader('modules', 'index')
+
 		});
 
-		window.App = new ManagerCraftApp();
+		window.App = new ButlerBossApp();
 
 		return window.App;
 
