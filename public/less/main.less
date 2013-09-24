@@ -1,17 +1,14 @@
-/*
- *Imports. LESS compiler will combine all these into a single file.
- */
+// Imports. LESS compiler will combine all these into a single file.
+// Importing individual Bootstrap LESS files allows us to use only the files we need.
 
 @import "font.less";
 
-/*
- * Import individual Bootstrap LESS files so we can adjust variables before 
- * they are used. Also allows us to keep out any LESS files we don't use.
- */
+//==========================================================
+// TWITTER BOOTSTRAP
+//==========================================================
 
 // Core variables and mixins
 @import "../components/bootstrap/less/variables.less";
-@import "custom-variables.less";
 @import "../components/bootstrap/less/mixins.less";
 
 // Reset
@@ -60,10 +57,13 @@
 @import "../components/bootstrap/less/utilities.less";
 @import "../components/bootstrap/less/responsive-utilities.less";
 
-// HTML5 Boilerplate Base Styles
+
+//==========================================================
+// HTML5 BOILERPLATE AND CUSTOM
+//==========================================================
+
+@import "custom-variables.less";
 @import "base.less";
-
-
 
 
 .chromeframe {
@@ -73,11 +73,5 @@
     padding: 0.2em 0;
 }
 
-
-
-/*
- * HTML5 Boilerplate and Other Helpers
- * These come last so that their styles have a higher priority
- */
 
 @import "helpers.less";
