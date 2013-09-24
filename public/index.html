@@ -37,12 +37,16 @@
         </div>
 
         <script type="text/javascript">
-            var minecraftServerData = [
+            window.ButlerBoss = window.ButlerBoss || {};
+            ButlerBoss.config = ButlerBoss.config || {};
+            ButlerBoss.config.data = ButlerBoss.config.data || {};
+
+            ButlerBoss.config.data.minecraftServers = [
                 {id:1, name:"Server 1", description:"A Really Awesome Server 1"},
                 {id:2, name:"Server 2", description:"A Really Awesome Server 2"},
                 {id:3, name:"Server 3", description:"A Really Awesome Server 3"},
                 {id:4, name:"Server 4", description:"A Really Awesome Server 4"}
-            ]
+            ];
         </script>
         <script type="text/javascript" data-main="js/config" src="components/requirejs/require.js"></script>
     </body>

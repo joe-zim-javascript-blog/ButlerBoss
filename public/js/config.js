@@ -42,3 +42,16 @@ require.config({
 	}
 
 });
+
+
+window.ButlerBoss = window.ButlerBoss || {};
+ButlerBoss.config = ButlerBoss.config || {};
+
+ButlerBoss.config.host = window.location.protocol + "//" + window.location.hostname;
+
+ButlerBoss.config.data = ButlerBoss.config.data || {};
+ButlerBoss.config.data.minecraftServers = ButlerBoss.config.data.minecraftServers || null;
+ButlerBoss.config.io = {
+	port: window.location.port,
+	'auto connect': true
+};

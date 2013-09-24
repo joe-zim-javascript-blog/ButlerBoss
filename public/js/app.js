@@ -1,8 +1,8 @@
 define(
-	['marionette', 'utils/specialized-loader'],
-	function(Marionette, Loader) {
+	['marionette', 'underscore', 'utils/specialized-loader'],
+	function(Marionette, _,Loader) {
 
-		ButlerBossApp = Marionette.Application.extend({
+		var BBApplication = Marionette.Application.extend({
 
 			Model: new Loader('models'),
 			View: new Loader('views'),
@@ -10,9 +10,10 @@ define(
 
 		});
 
-		window.App = new ButlerBossApp();
+		// Configuration should already exist at ButlerBoss.config. Mix the new Application with it
+		window.ButlerBoss = _.extend(new BBApplication(), window.ButlerBoss);
 
-		return window.App;
+		return window.ButlerBoss;
 
 	}
 );

@@ -1,27 +1,26 @@
 require(
-	['app', 'backbone', 'bootstrap-app'],
-	function(App, Backbone, bootstrap ) {
+	['app', 'backbone', 'controllers/main', 'routers/main', 'modules/communicator/index', 'modules/data/index'],
+	function(App, Backbone, MainController, MainRouter ) {
 
-		var options = {
-			mainContainer: '[data-view-binding=layout]',
-			host: window.location.protocol + "//" + window.location.hostname,
-			vent: App.vent,
-			io: {
-				port: window.location.port,
-				'auto connect': true
-			},
-			minecraftServerData: minecraftServerData || null
-		};
+		// Obtain from Config
+		ButlerBoss.config.vent = App.vent;
 
-		App.addInitializer(bootstrap);
+		App.addRegions({
+			header: '[data-region-name=header]',
+			main: '[data-region-name=main]',
+			footer: '[data-region-name=footer]'
+		});
 
 		App.addInitializer(function(options) {
+			App.controller = new MainController(options);
+			App.router = new MainRouter({controller: App.controller});
+
 			Backbone.history.start();
 		});
 
-		App.start(options);
+		App.start(ButlerBoss.config);
 
-		App.vent.on('all', function(){ console.log.apply(console, arguments); });window.App = App;
+		App.vent.on('all', function(){ console.log.apply(console, arguments); });
 
 	}
 );
