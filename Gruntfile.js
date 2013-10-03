@@ -10,19 +10,36 @@ module.exports = function(grunt) {
 			prod: {
 				options: {
 					yuicompress: true,
-					dumpLineNumbers: 'comments'
+					dumpLineNumbers: "comments"
 				},
 				files: {
 					"public/css/main.css" : "public/less/main.less"
 				}
 			}
+		},
+
+		watch: {
+			dev: {
+				files: "public/**/*.less",
+				tasks: ["less:dev"],
+				options: {
+					livereload: true
+				}
+			},
+			prod: {
+				files: "public/**/*.less",
+				tasks: ["less:prod"],
+				options: {
+					livereload: true
+				}
+			},
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks("grunt-contrib-less");
+	grunt.loadNpmTasks("grunt-contrib-watch");
 
-	grunt.registerTask('build', ['less:prod']);
-
-	grunt.registerTask('default', ['less:dev']);
+	grunt.registerTask("build", ["less:prod"]);
+	grunt.registerTask("default", ["less:dev", "watch:dev"]);
 
 };
