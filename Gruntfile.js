@@ -3,6 +3,10 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		less: {
 			dev: {
+				options: {
+					sourceMap: true,
+					sourceMapFilename: "public/css/main.map"
+				},
 				files: {
 					"public/css/main.css" : "public/less/main.less"
 				}
@@ -20,7 +24,7 @@ module.exports = function(grunt) {
 
 		watch: {
 			dev: {
-				files: "public/**/*.less",
+				files: ["public/*", "public/**/*.js", "public/**/*.tpl", "public/**/*.less"],
 				tasks: ["less:dev"],
 				options: {
 					livereload: true
@@ -39,7 +43,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 
-	grunt.registerTask("build", ["less:prod"]);
+	grunt.registerTask("build", ["build:prod"]);
+	grunt.registerTask("build:prod", ["less:prod"]);
+	grunt.registerTask("build:dev", ["less:dev"]);
 	grunt.registerTask("default", ["less:dev", "watch:dev"]);
 
 };
