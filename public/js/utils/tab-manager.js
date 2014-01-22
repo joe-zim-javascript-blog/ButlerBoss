@@ -25,7 +25,7 @@ define(
 
 			removeTab: function(name) {
 				this.view.removeTab(name);
-				manager.vent.trigger('tab:removed', name);
+				this.vent.trigger('tab:removed', name);
 			},
 
 			_addNewTab: function(tabType, tabOptions, tabTitle) {

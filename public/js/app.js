@@ -1,11 +1,12 @@
 define(
 	['marionette', 'underscore', 'utils/specialized-loader'],
-	function(Marionette, _,Loader) {
+	function(Marionette, _, Loader) {
 
 		var BBApplication = Marionette.Application.extend({
 
 			Model: new Loader('models'),
 			View: new Loader('views'),
+			Util: new Loader('utils'),
 			Module: new Loader('modules', 'index')
 
 		});

@@ -1,6 +1,6 @@
 define(
-	['app', 'marionette'],
-	function(App, Marionette) {
+	['app', 'backbone', 'marionette'],
+	function(App, Backbone, Marionette) {
 
 		var MainRouter = Marionette.AppRouter.extend({
 			appRoutes: {
