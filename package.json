@@ -1,13 +1,22 @@
 {
-  "name": "MineCraft_Server_Starter",
-  "version": "0.1.0",
-  "dependencies": {
-    "express": "~3",
-    "socket.io": "~0.9"
-  },
-  "devDependencies": {
-    "grunt": "~0.4",
-    "grunt-contrib-less": "~0.9",
-    "grunt-contrib-watch": "~0.5"
-  }
+    "name": "ButlerBoss",
+    "version": "0.1.0",
+    "author": {
+        "name": "Joseph Zimmerman",
+        "email": "contact@joezimjs.com",
+        "url": "http://www.joezimjs.com"
+    },
+    "dependencies": {
+        "express": "~3",
+        "socket.io": "~0.9"
+    },
+    "devDependencies": {
+        "grunt": "~0.4",
+        "grunt-contrib-less": "~0.9",
+        "grunt-contrib-watch": "~0.5"
+    },
+    "scripts": {
+        "start": "node ./server/butlerboss",
+        "test": "testem"
+    }
 }

@@ -6,7 +6,7 @@ var io_server = require('./application/io_server.js');
 
 var port = 8080;
 
-file_server.create(server, __dirname + '/public');
+file_server.create(server, __dirname + '/../public');
 io_server.create(server);
 
 server.listen(port);
