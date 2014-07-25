@@ -3,4 +3,6 @@ node_modules
 public/components
 public/css/main.css
 public/css/main.map
-TODO.txt # Developers can store notes for what they plan to do here without committing to repo
+
+# Developers can store notes for what they plan to do here without committing to repo
+TODO.txt
